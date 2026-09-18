@@ -1,0 +1,2 @@
+method,kind,parameter,mean,std,min,max
+fixed_l2,fixed_l2_coefficient,all_weight_layers,0.0001,0.0,0.0001,0.0001

@@ -1,0 +1,29 @@
+{
+  "method": "fixed_l2",
+  "configuration": {
+    "method": "fixed_l2",
+    "data_dir": "C:\\Users\\Pang Xianghan\\Desktop\\MAML学习率与正则化元学习探索实验\\meta_maml_exploration\\data",
+    "output_dir": "C:\\Users\\Pang Xianghan\\Desktop\\MAML学习率与正则化元学习探索实验\\meta_maml_exploration\\outputs_seed42\\fixed_l2",
+    "download": true,
+    "device": "auto",
+    "seed": 42,
+    "episodes": 600,
+    "eval_episodes": 200,
+    "meta_batch": 4,
+    "n_way": 5,
+    "k_shot": 1,
+    "q_query": 5,
+    "inner_steps": 1,
+    "inner_lr": 0.4,
+    "outer_lr": 0.001,
+    "initial_l2": 0.0001,
+    "hidden_channels": 32,
+    "log_every": 20,
+    "first_order": false,
+    "device_used": "cpu"
+  },
+  "test_loss_mean": 1.0193296344578266,
+  "test_accuracy_mean": 0.5918000025302171,
+  "test_accuracy_std": 0.13582711474921025,
+  "test_accuracy_ci95": 0.0188246776860013
+}
