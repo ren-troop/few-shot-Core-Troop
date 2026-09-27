@@ -1,0 +1,23 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Downloaded or generated data
+data/
+sklearn_data/
+outputs/
+
+# Model checkpoints and binary artifacts
+*.pt
+*.pth
+*.ckpt
+*.png
+*.pdf
+*.xlsx
+*.xls
+*.zip
+
+# Operating-system metadata
+.DS_Store
+Thumbs.db
