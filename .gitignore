@@ -1,0 +1,32 @@
+# ---- 数据：版权原因不纳入版本控制，获取方式见 README.md ----
+data/
+*.mat
+*.csv
+
+# ---- 运行输出（脚本会自动创建 results/）----
+results/
+
+# ---- 论文 PDF 与全文提取 ----
+papers/
+*.pdf
+
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# ---- Office / macOS 临时文件 ----
+# ~$xxx.docx 是 Word 的锁文件，里面的 OLE 元数据含 Windows 用户名；
+# ._xxx 是 macOS 压缩产生的资源叉文件。都不该进版本库。
+~$*
+._*
+
+# ---- 编辑器 / 系统 ----
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
