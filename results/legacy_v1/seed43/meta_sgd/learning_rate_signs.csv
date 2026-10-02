@@ -1,0 +1,11 @@
+parameter,count,negative_count,zero_count,positive_count,negative_fraction
+features.0.weight,288,48,0,240,0.1666666716337204
+features.0.bias,32,21,0,11,0.65625
+features.3.weight,9216,186,0,9030,0.02018229104578495
+features.3.bias,32,2,0,30,0.0625
+features.6.weight,9216,0,0,9216,0.0
+features.6.bias,32,0,0,32,0.0
+features.9.weight,9216,0,0,9216,0.0
+features.9.bias,32,0,0,32,0.0
+classifier.weight,160,0,0,160,0.0
+classifier.bias,5,0,0,5,0.0

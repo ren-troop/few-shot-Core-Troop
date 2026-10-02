@@ -1,0 +1,6 @@
+method,kind,scope,parameter,count,mean,std,min,max,negative_count,zero_count,positive_count,negative_fraction
+fixed_l2,fixed_l2_coefficient,per_layer,features.0.weight,1,9.999999747378752e-05,0.0,9.999999747378752e-05,9.999999747378752e-05,0,0,1,0.0
+fixed_l2,fixed_l2_coefficient,per_layer,features.3.weight,1,9.999999747378752e-05,0.0,9.999999747378752e-05,9.999999747378752e-05,0,0,1,0.0
+fixed_l2,fixed_l2_coefficient,per_layer,features.6.weight,1,9.999999747378752e-05,0.0,9.999999747378752e-05,9.999999747378752e-05,0,0,1,0.0
+fixed_l2,fixed_l2_coefficient,per_layer,features.9.weight,1,9.999999747378752e-05,0.0,9.999999747378752e-05,9.999999747378752e-05,0,0,1,0.0
+fixed_l2,fixed_l2_coefficient,per_layer,classifier.weight,1,9.999999747378752e-05,0.0,9.999999747378752e-05,9.999999747378752e-05,0,0,1,0.0

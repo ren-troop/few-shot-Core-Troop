@@ -1,0 +1,11 @@
+{
+  "protocol": "legacy_v1_no_validation",
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "definition": "Student t interval across independent training-seed means; sd uses ddof=1",
+  "caveat": "Only three seeds: uncertainty is large. CI overlap is not a significance test.",
+  "paired_definition": "Same-seed method differences, two-sided Student t CI; exploratory, no multiplicity correction"
+}

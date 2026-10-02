@@ -1,0 +1,22 @@
+[
+  {
+    "dataset": "water_quality_uci",
+    "rows": 26085,
+    "status": "passed",
+    "split_counts": {
+      "train": 12506,
+      "test": 10434,
+      "validation": 3145
+    }
+  },
+  {
+    "dataset": "water_potability",
+    "rows": 3276,
+    "status": "passed",
+    "split_counts": {
+      "train": 2293,
+      "test": 492,
+      "validation": 491
+    }
+  }
+]

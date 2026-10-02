@@ -1,0 +1,79 @@
+{
+  "method": "meta_l2",
+  "protocol_version": "review_v2_background_class_holdout",
+  "configuration": {
+    "data_dir": "data",
+    "download": true,
+    "device": "auto",
+    "seed": 42,
+    "episodes": 600,
+    "eval_episodes": 200,
+    "meta_batch": 4,
+    "n_way": 5,
+    "k_shot": 1,
+    "q_query": 5,
+    "inner_steps": 1,
+    "hidden_channels": 32,
+    "log_every": 20,
+    "val_every": 100,
+    "val_episodes": 50,
+    "split_seed": 2026,
+    "num_threads": 4,
+    "inner_lr": 0.4,
+    "outer_lr": 0.001,
+    "initial_l2": 0.0001,
+    "l2_outer_lr": 0.01,
+    "l2_adam_eps": 1e-08,
+    "val_fraction": 0.2,
+    "first_order": false,
+    "meta_sgd_positive": false,
+    "save_checkpoint": false,
+    "method": "meta_l2",
+    "output_dir": "outputs_review_seed42/meta_l2",
+    "device_used": "cpu"
+  },
+  "split_signature": "4d934f5c11dbefd944620451c8052dae3d18a31324332f1578d2f9b699c13b7c",
+  "selection_policy": "final_episode_no_test_selection",
+  "ci_definition": "Student t interval across sampled test tasks for one trained model",
+  "elapsed_seconds": 79.90143910000916,
+  "environment": {
+    "python": "3.11.16",
+    "torch": "2.2.2",
+    "torchvision": "0.17.2",
+    "numpy": "1.26.4",
+    "pandas": "2.3.3",
+    "platform": "Windows",
+    "device_name": "CPU"
+  },
+  "l2_diagnostics": {
+    "gradient_connected": true,
+    "nonzero_gradient_episodes": 600,
+    "initial_l2": 0.0001,
+    "final_values": {
+      "features.0.weight": [
+        -10.984716415405273,
+        1.6958780179265887e-05
+      ],
+      "features.3.weight": [
+        -9.576160430908203,
+        6.936035060789436e-05
+      ],
+      "features.6.weight": [
+        -9.609633445739746,
+        6.70771551085636e-05
+      ],
+      "features.9.weight": [
+        -9.61512279510498,
+        6.670996663160622e-05
+      ],
+      "classifier.weight": [
+        -11.174609184265137,
+        1.4025742530066054e-05
+      ]
+    }
+  },
+  "test_loss_mean": 0.9677968236804009,
+  "test_accuracy_mean": 0.6124000014364719,
+  "test_accuracy_std": 0.15213799800958086,
+  "test_accuracy_ci95": 0.021213876658128475
+}

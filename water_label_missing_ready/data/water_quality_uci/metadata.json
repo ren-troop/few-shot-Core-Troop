@@ -1,0 +1,80 @@
+{
+  "name": "Water Quality Prediction",
+  "source": "https://archive.ics.uci.edu/static/public/733/water%2Bquality%2Bprediction-1.zip",
+  "uci_dataset_id": 733,
+  "task": "regression",
+  "target": "source-provided normalized median field pH target",
+  "target_alignment": "Preserve X_tr/Y_tr and X_te/Y_te pairing supplied by UCI; no extra label shift.",
+  "temporal_caveat": "Source describes next-day prediction; exact physical dates/alignment and source normalization fitting scope are not independently reconstructed.",
+  "official_day_counts": {
+    "train": 423,
+    "test": 282,
+    "total": 705
+  },
+  "train_days": 338,
+  "validation_days": 85,
+  "locations_in_mat_file": 37,
+  "tabular_rows_after_flattening_site_day_pairs": 26085,
+  "features": [
+    "conductance_max",
+    "ph_max",
+    "ph_min",
+    "conductance_min",
+    "conductance_mean",
+    "dissolved_oxygen_max",
+    "dissolved_oxygen_mean",
+    "dissolved_oxygen_min",
+    "temperature_mean",
+    "temperature_min",
+    "temperature_max"
+  ],
+  "source_feature_names": [
+    "Specific conductance, water, unfiltered, microsiemens per centimeter at 25 degrees Celsius (Maximum)",
+    "pH, water, unfiltered, field, standard units (Maximum)",
+    "pH, water, unfiltered, field, standard units (Minimum)",
+    "Specific conductance, water, unfiltered, microsiemens per centimeter at 25 degrees Celsius (Minimum)",
+    "Specific conductance, water, unfiltered, microsiemens per centimeter at 25 degrees Celsius (Mean)",
+    "Dissolved oxygen, water, unfiltered, milligrams per liter (Maximum)",
+    "Dissolved oxygen, water, unfiltered, milligrams per liter (Mean)",
+    "Dissolved oxygen, water, unfiltered, milligrams per liter (Minimum)",
+    "Temperature, water, degrees Celsius (Mean)",
+    "Temperature, water, degrees Celsius (Minimum)",
+    "Temperature, water, degrees Celsius (Maximum)"
+  ],
+  "preprocessing": "Retain official processed numbers; chronological split by day, all sites share the split.",
+  "raw_archive_sha256": "06fb3c435ab21c5504b4ea656da51910770d809a8f6cbf670d88d512bea97240",
+  "schema_version": "water_review_v2",
+  "mask_seed": 42,
+  "split_counts": {
+    "train": 12506,
+    "test": 10434,
+    "validation": 3145
+  },
+  "missingness_mechanism": "MCAR without replacement, training labels only; independent RNG per dataset",
+  "nested_masks": true,
+  "rounding": "int(round(rate * n_train))",
+  "label_true_policy": "Present only in complete.csv; missing variants physically omit it",
+  "variants": [
+    {
+      "file": "missing_20pct.csv",
+      "requested_missing_rate": 0.2,
+      "actual_train_missing_rate": 0.19998400767631536,
+      "masked_train_labels": 2501,
+      "train_rows": 12506
+    },
+    {
+      "file": "missing_40pct.csv",
+      "requested_missing_rate": 0.4,
+      "actual_train_missing_rate": 0.3999680153526307,
+      "masked_train_labels": 5002,
+      "train_rows": 12506
+    },
+    {
+      "file": "missing_60pct.csv",
+      "requested_missing_rate": 0.6,
+      "actual_train_missing_rate": 0.6000319846473693,
+      "masked_train_labels": 7504,
+      "train_rows": 12506
+    }
+  ]
+}
