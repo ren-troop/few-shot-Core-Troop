@@ -1,0 +1,97 @@
+{
+  "name": "Water Potability",
+  "source": "https://raw.githubusercontent.com/prasadposture/Water-Potability-Project/main/water_potability.csv",
+  "canonical_page": "https://www.kaggle.com/datasets/adityakadiwal/water-potability",
+  "task": "binary classification",
+  "target": "Potability (0=not potable, 1=potable)",
+  "rows": 3276,
+  "class_counts": {
+    "0": 1998,
+    "1": 1278
+  },
+  "original_missing_feature_counts": {
+    "ph": 491,
+    "Hardness": 0,
+    "Solids": 0,
+    "Chloramines": 0,
+    "Sulfate": 781,
+    "Conductivity": 0,
+    "Organic_carbon": 0,
+    "Trihalomethanes": 162,
+    "Turbidity": 0
+  },
+  "feature_preprocessing": "training-median imputation, then training-fitted z-score standardization",
+  "training_medians": {
+    "ph": 7.031684051,
+    "Hardness": 197.3312909,
+    "Solids": 20791.31898,
+    "Chloramines": 7.106043486,
+    "Sulfate": 333.0765879,
+    "Conductivity": 424.6661118,
+    "Organic_carbon": 14.17650116,
+    "Trihalomethanes": 66.54219804,
+    "Turbidity": 3.959293615
+  },
+  "scaler_mean": {
+    "ph": 7.084083206242476,
+    "Hardness": 196.72138194440905,
+    "Solids": 21814.37007929433,
+    "Chloramines": 7.097089572910598,
+    "Sulfate": 333.8225463379852,
+    "Conductivity": 427.99367846454425,
+    "Organic_carbon": 14.26393374441125,
+    "Trihalomethanes": 66.11745379716399,
+    "Turbidity": 3.970862691922809
+  },
+  "scaler_scale": {
+    "ph": 1.4688295238427742,
+    "Hardness": 32.62900493589172,
+    "Solids": 8786.325624301628,
+    "Chloramines": 1.6049780607150752,
+    "Sulfate": 36.41397533039289,
+    "Conductivity": 81.13469808000949,
+    "Organic_carbon": 3.26874313943009,
+    "Trihalomethanes": 15.779450629799967,
+    "Turbidity": 0.7820128055999847
+  },
+  "output_features": [
+    "z_ph",
+    "z_Hardness",
+    "z_Solids",
+    "z_Chloramines",
+    "z_Sulfate",
+    "z_Conductivity",
+    "z_Organic_carbon",
+    "z_Trihalomethanes",
+    "z_Turbidity"
+  ],
+  "split_counts": {
+    "train": 2293,
+    "test": 492,
+    "validation": 491
+  },
+  "raw_csv_sha256": "ce044ba3c1802cd4b72681d81e508630b9c6796632ad362e78dea8441efb0b80",
+  "variants": [
+    {
+      "requested_missing_rate": 0.2,
+      "actual_train_missing_rate": 0.20017444395987788,
+      "masked_train_labels": 459,
+      "train_rows": 2293,
+      "file": "missing_20pct.csv"
+    },
+    {
+      "requested_missing_rate": 0.4,
+      "actual_train_missing_rate": 0.39991277802006103,
+      "masked_train_labels": 917,
+      "train_rows": 2293,
+      "file": "missing_40pct.csv"
+    },
+    {
+      "requested_missing_rate": 0.6,
+      "actual_train_missing_rate": 0.6000872219799389,
+      "masked_train_labels": 1376,
+      "train_rows": 2293,
+      "file": "missing_60pct.csv"
+    }
+  ]
+}
