@@ -1,0 +1,25 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.idea/
+.pytest_cache/
+# Generated data: keep only provenance JSON in the water benchmark.
+data/**
+**/data/**
+!water_label_missing_ready/data/
+!water_label_missing_ready/data/manifest.json
+!water_label_missing_ready/data/water_quality_uci/
+!water_label_missing_ready/data/water_quality_uci/metadata.json
+!water_label_missing_ready/data/water_potability/
+!water_label_missing_ready/data/water_potability/metadata.json
+outputs*/
+*.pt
+*.pth
+*.ckpt
+*.png
+*.pdf
+*.zip
+*.mat
+*.csv*
+!results/**/*.csv

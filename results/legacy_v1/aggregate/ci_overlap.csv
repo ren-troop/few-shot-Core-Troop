@@ -1,0 +1,7 @@
+method_a,method_b,ci95_overlap,interpretation
+fixed_l2,maml,True,descriptive_only_not_a_significance_test
+fixed_l2,meta_l2,True,descriptive_only_not_a_significance_test
+fixed_l2,meta_sgd,True,descriptive_only_not_a_significance_test
+maml,meta_l2,True,descriptive_only_not_a_significance_test
+maml,meta_sgd,True,descriptive_only_not_a_significance_test
+meta_l2,meta_sgd,True,descriptive_only_not_a_significance_test

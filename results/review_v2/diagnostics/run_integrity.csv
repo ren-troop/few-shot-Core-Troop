@@ -1,0 +1,13 @@
+seed,method,training_updates,test_tasks,validation_rounds,signed_meta_sgd,checkpoint_requested,device,elapsed_seconds,status
+42,maml,600,200,6,True,False,cpu,89.20202880000579,passed
+42,meta_sgd,600,200,6,True,False,cpu,88.95795680000447,passed
+42,fixed_l2,600,200,6,True,False,cpu,78.36958830000367,passed
+42,meta_l2,600,200,6,True,False,cpu,79.90143910000916,passed
+43,maml,600,200,6,True,False,cpu,76.2070459999959,passed
+43,meta_sgd,600,200,6,True,False,cpu,76.2714316000056,passed
+43,fixed_l2,600,200,6,True,False,cpu,78.8761965999729,passed
+43,meta_l2,600,200,6,True,False,cpu,79.30091409999295,passed
+44,maml,600,200,6,True,False,cpu,80.95021079998696,passed
+44,meta_sgd,600,200,6,True,False,cpu,77.29541980000795,passed
+44,fixed_l2,600,200,6,True,False,cpu,78.74490070002503,passed
+44,meta_l2,600,200,6,True,False,cpu,80.27539039999829,passed

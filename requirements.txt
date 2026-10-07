@@ -1,0 +1,9 @@
+# Keep your existing working torch/torchvision pair; install the remaining packages as needed.
+numpy>=1.24,<3
+pandas>=2.0,<3
+scipy>=1.10,<2
+matplotlib>=3.7,<4
+Pillow>=9.0
+# Training requires PyTorch >=2.1 with a matching torchvision version.
+
+scikit-learn>=1.2,<2

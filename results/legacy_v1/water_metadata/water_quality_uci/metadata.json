@@ -1,0 +1,56 @@
+{
+  "name": "Water Quality Prediction",
+  "source": "https://archive.ics.uci.edu/static/public/733/water%2Bquality%2Bprediction-1.zip",
+  "uci_dataset_id": 733,
+  "task": "regression",
+  "target": "normalized next-day median field pH",
+  "official_day_counts": {
+    "train": 423,
+    "test": 282,
+    "total": 705
+  },
+  "tabular_rows_after_flattening_site_day_pairs": 26085,
+  "locations_in_mat_file": 37,
+  "features": [
+    "conductance_max",
+    "ph_max",
+    "ph_min",
+    "conductance_min",
+    "conductance_mean",
+    "dissolved_oxygen_max",
+    "dissolved_oxygen_mean",
+    "dissolved_oxygen_min",
+    "temperature_mean",
+    "temperature_min",
+    "temperature_max"
+  ],
+  "split_counts": {
+    "train": 12506,
+    "test": 10434,
+    "validation": 3145
+  },
+  "raw_archive_sha256": "06fb3c435ab21c5504b4ea656da51910770d809a8f6cbf670d88d512bea97240",
+  "variants": [
+    {
+      "requested_missing_rate": 0.2,
+      "actual_train_missing_rate": 0.19998400767631536,
+      "masked_train_labels": 2501,
+      "train_rows": 12506,
+      "file": "missing_20pct.csv"
+    },
+    {
+      "requested_missing_rate": 0.4,
+      "actual_train_missing_rate": 0.3999680153526307,
+      "masked_train_labels": 5002,
+      "train_rows": 12506,
+      "file": "missing_40pct.csv"
+    },
+    {
+      "requested_missing_rate": 0.6,
+      "actual_train_missing_rate": 0.6000319846473693,
+      "masked_train_labels": 7504,
+      "train_rows": 12506,
+      "file": "missing_60pct.csv"
+    }
+  ]
+}
