@@ -1,8 +1,10 @@
 __pycache__/
 *.py[cod]
+*.egg-info/
 .venv/
 venv/
 .idea/
+.vscode/
 .pytest_cache/
 # Generated data: keep only provenance JSON in the water benchmark.
 data/**
@@ -23,3 +25,8 @@ outputs*/
 *.mat
 *.csv*
 !results/**/*.csv
+# 论文 PDF 与全文提取（不随仓库分发）
+papers/
+# Office / macOS 临时文件：~$xxx.docx 是 Word 锁文件，OLE 元数据里含 Windows 用户名
+~$*
+._*
