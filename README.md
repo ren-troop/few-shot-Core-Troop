@@ -28,6 +28,7 @@ Meta-L2 每层梯度均有回传，系数相对初值下降约 28%–86%，确�
 3. [阶段报告](meta_maml_exploration/docs/阶段进度报告.md) 与 [实验说明](meta_maml_exploration/README.md)。
 4. [水质基准说明](water_label_missing_ready/README.md)：来源、字段、缺失机制与下游使用。
 5. [PR 标题和描述](PR_DESCRIPTION.md)：复制到远端 PR；本文件交付不代表已修改远端。
+6. [半监督信号该放进 MAML 的哪一层](ssl_maml/README.md)：内层 SSL 有害、放到适应之后才有效的受控实验与真实水数据验证。
 
 ### 提交范围
 
