@@ -2,6 +2,8 @@
 import argparse
 import math
 
+from src.common.meta_sgd_lr import DEFAULT_CLAMP_MAX, DEFAULT_CLAMP_MIN, MODES
+
 METHODS = ("maml", "meta_sgd", "fixed_l2", "meta_l2")
 PROTOCOL = "review_v2_background_class_holdout"
 
@@ -23,8 +25,10 @@ def add_common_arguments(parser):
     }.items():
         parser.add_argument("--" + name, type=float, default=default)
     parser.add_argument("--first-order", action="store_true")
-    parser.add_argument("--meta-sgd-positive", action="store_true",
-                        help="Use softplus-constrained positive inner steps (a separate variant).")
+    parser.add_argument("--meta-sgd-mode", choices=MODES, default="softplus",
+                        help="Constraint for learned Meta-SGD inner steps.")
+    parser.add_argument("--meta-sgd-clamp-min", type=float, default=DEFAULT_CLAMP_MIN)
+    parser.add_argument("--meta-sgd-clamp-max", type=float, default=DEFAULT_CLAMP_MAX)
     parser.add_argument("--save-checkpoint", action="store_true")
 
 
@@ -41,6 +45,10 @@ def validate_args(args, parser, methods):
         parser.error("At least 2 evaluation/validation tasks are required for a CI")
     if args.val_every < 0 or not 0 < args.val_fraction < 1:
         parser.error("val-every must be >= 0 and val-fraction must be in (0, 1)")
+    if (not math.isfinite(args.meta_sgd_clamp_min) or not math.isfinite(args.meta_sgd_clamp_max)
+            or args.meta_sgd_clamp_min <= 0
+            or args.meta_sgd_clamp_max < args.meta_sgd_clamp_min):
+        parser.error("Meta-SGD clamp bounds must be finite, positive, and ordered")
     if args.k_shot + args.q_query > 20:
         parser.error("Omniglot has 20 images per character: k-shot + q-query must be <= 20")
     if args.first_order and "meta_l2" in methods:

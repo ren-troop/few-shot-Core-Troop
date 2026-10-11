@@ -11,7 +11,8 @@ from scipy.stats import t
 
 COMPARABLE = ('episodes','eval_episodes','meta_batch','n_way','k_shot','q_query','inner_steps',
               'inner_lr','outer_lr','initial_l2','hidden_channels','first_order','val_fraction',
-              'split_seed','val_every','val_episodes','meta_sgd_positive','l2_outer_lr','l2_adam_eps')
+              'split_seed','val_every','val_episodes','meta_sgd_mode','meta_sgd_clamp_min',
+              'meta_sgd_clamp_max','l2_outer_lr','l2_adam_eps')
 
 
 def stats(values):

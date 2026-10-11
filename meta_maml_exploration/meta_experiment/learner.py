@@ -9,6 +9,14 @@ import torch.nn.functional as F
 from torch import Tensor, nn
 from torch.func import functional_call
 
+from src.common.meta_sgd_lr import (
+    DEFAULT_CLAMP_MAX,
+    DEFAULT_CLAMP_MIN,
+    MODES,
+    apply_meta_sgd_constraint,
+    summarize_lr,
+)
+
 from .data import Episode
 from .config import METHODS
 
@@ -36,7 +44,9 @@ class MetaLearner(nn.Module):
         inner_steps: int,
         initial_l2: float,
         first_order: bool,
-        meta_sgd_positive: bool = False,
+        meta_sgd_mode: str = "softplus",
+        meta_sgd_clamp_min: float = DEFAULT_CLAMP_MIN,
+        meta_sgd_clamp_max: float = DEFAULT_CLAMP_MAX,
     ) -> None:
         super().__init__()
         if method not in METHODS:
@@ -46,7 +56,14 @@ class MetaLearner(nn.Module):
 
         if not math.isfinite(initial_l2) or initial_l2 <= 0:
             raise ValueError("initial_l2 must be finite and > 0")
-        self.meta_sgd_positive = meta_sgd_positive
+        if meta_sgd_mode not in MODES:
+            raise ValueError(f"meta_sgd_mode must be one of {MODES}")
+        if (not math.isfinite(meta_sgd_clamp_min) or not math.isfinite(meta_sgd_clamp_max)
+                or meta_sgd_clamp_min <= 0 or meta_sgd_clamp_max < meta_sgd_clamp_min):
+            raise ValueError("Meta-SGD clamp bounds must be finite, positive, and ordered")
+        self.meta_sgd_mode = meta_sgd_mode
+        self.meta_sgd_clamp_min = float(meta_sgd_clamp_min)
+        self.meta_sgd_clamp_max = float(meta_sgd_clamp_max)
         self.model = model
         self.method = method
         self.inner_lr = float(inner_lr)
@@ -59,8 +76,16 @@ class MetaLearner(nn.Module):
         for name, parameter in self.model.named_parameters():
             key = _safe_key(name)
             if method == "meta_sgd":
+                if meta_sgd_mode == "softplus":
+                    initial_step = _inverse_softplus(inner_lr)
+                elif meta_sgd_mode == "clamp":
+                    # Start inside the feasible interval so the first update is
+                    # not initialized outside the clamp range.
+                    initial_step = min(max(inner_lr, meta_sgd_clamp_min), meta_sgd_clamp_max)
+                else:
+                    initial_step = inner_lr
                 self.learned_lrs[key] = nn.Parameter(
-                    torch.full_like(parameter, fill_value=_inverse_softplus(inner_lr) if meta_sgd_positive else inner_lr)
+                    torch.full_like(parameter, fill_value=initial_step)
                 )
             if method == "meta_l2" and parameter.ndim > 1:
                 self.raw_l2[key] = nn.Parameter(
@@ -103,9 +128,12 @@ class MetaLearner(nn.Module):
             updated = OrderedDict()
             for (name, parameter), gradient in zip(params.items(), gradients):
                 if self.method == "meta_sgd":
-                    step_size: Tensor | float = self.learned_lrs[_safe_key(name)]
-                    if self.meta_sgd_positive:
-                        step_size = F.softplus(step_size)
+                    step_size: Tensor | float = apply_meta_sgd_constraint(
+                        self.learned_lrs[_safe_key(name)],
+                        mode=self.meta_sgd_mode,
+                        clamp_min=self.meta_sgd_clamp_min,
+                        clamp_max=self.meta_sgd_clamp_max,
+                    )
                 else:
                     step_size = self.inner_lr
                 updated[name] = parameter - step_size * gradient
@@ -122,9 +150,25 @@ class MetaLearner(nn.Module):
     def learned_hyperparameter_rows(self):
         rows = []
         if self.method == "meta_sgd":
-            values = ((name, F.softplus(v) if self.meta_sgd_positive else v)
-                      for name, v in self.learned_lrs.items())
             label, scope = "learning_rate", "per_parameter"
+            for name, raw in self.learned_lrs.items():
+                value = apply_meta_sgd_constraint(
+                    raw, mode=self.meta_sgd_mode,
+                    clamp_min=self.meta_sgd_clamp_min,
+                    clamp_max=self.meta_sgd_clamp_max,
+                )
+                stats = summarize_lr(
+                    [value], raw_values=[raw], mode=self.meta_sgd_mode,
+                    clamp_min=self.meta_sgd_clamp_min,
+                    clamp_max=self.meta_sgd_clamp_max,
+                )
+                rows.append(dict(
+                    method=self.method, kind=label, scope=scope,
+                    parameter=name.replace("__", "."), count=value.numel(),
+                    **stats,
+                    negative_fraction=stats["negative_count"] / value.numel(),
+                ))
+            return rows
         elif self.method == "meta_l2":
             values = ((name, F.softplus(v)) for name, v in self.raw_l2.items())
             label, scope = "l2_coefficient", "per_layer"
@@ -143,5 +187,6 @@ class MetaLearner(nn.Module):
                              negative_count=(v < 0).sum().item(),
                              zero_count=(v == 0).sum().item(),
                              positive_count=(v > 0).sum().item(),
-                             negative_fraction=(v < 0).double().mean().item()))
+                             negative_fraction=(v < 0).double().mean().item(),
+                             clamp_count=0))
         return rows

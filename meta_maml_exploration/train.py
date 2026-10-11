@@ -22,7 +22,7 @@ from meta_experiment.utils import choose_device, save_json, seed_everything
 
 PROJECT = Path(__file__).resolve().parent
 HP_COLUMNS = ['method', 'kind', 'scope', 'parameter', 'count', 'mean', 'std', 'min', 'max',
-              'negative_count', 'zero_count', 'positive_count', 'negative_fraction']
+              'negative_count', 'zero_count', 'positive_count', 'negative_fraction', 'clamp_count']
 
 
 def build_parser():
@@ -106,7 +106,8 @@ def main():
         raise RuntimeError('Training/validation character overlap')
     learner = MetaLearner(OmniglotConvNet(args.n_way, args.hidden_channels), args.method,
                           args.inner_lr, args.inner_steps, args.initial_l2, args.first_order,
-                          args.meta_sgd_positive).to(device)
+                          args.meta_sgd_mode, args.meta_sgd_clamp_min,
+                          args.meta_sgd_clamp_max).to(device)
     optimizer = build_optimizer(learner, args)
     config = vars(args).copy()
     config.update(data_dir=portable_path(args.data_dir), output_dir=portable_path(output_dir),
@@ -180,7 +181,7 @@ def main():
     hp.to_csv(output_dir/'learned_hyperparameters.csv', index=False)
     if args.method == 'meta_sgd':
         hp[['parameter', 'count', 'negative_count', 'zero_count', 'positive_count',
-            'negative_fraction']].to_csv(output_dir/'learning_rate_signs.csv', index=False)
+            'negative_fraction', 'clamp_count']].to_csv(output_dir/'learning_rate_signs.csv', index=False)
     summary = dict(method=args.method, protocol_version=PROTOCOL, configuration=config,
                    split_signature=signature, selection_policy='final_episode_no_test_selection',
                    ci_definition='Student t interval across sampled test tasks for one trained model',

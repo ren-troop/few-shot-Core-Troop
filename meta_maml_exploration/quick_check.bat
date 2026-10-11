@@ -1,7 +1,8 @@
 @echo off
 chcp 65001 > nul
 pushd "%~dp0"
-python run_all.py --download --episodes 3 --eval-episodes 3 --meta-batch 1 --val-every 1 --val-episodes 3 --plots --output-root outputs_quick_check
+if exist "outputs_quick_check_clamp" rmdir /s /q "outputs_quick_check_clamp"
+python run_all.py --download --episodes 3 --eval-episodes 3 --meta-batch 1 --val-every 1 --val-episodes 3 --meta-sgd-mode clamp --plots --output-root outputs_quick_check_clamp
 if errorlevel 1 goto failed
 echo Quick check completed.
 popd
