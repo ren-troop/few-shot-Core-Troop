@@ -16,7 +16,8 @@ SEEDS=(42,43,44)
 EXPECTED=dict(episodes=600,eval_episodes=200,meta_batch=4,n_way=5,k_shot=1,q_query=5,
               inner_steps=1,inner_lr=.4,outer_lr=.001,initial_l2=.0001,l2_outer_lr=.01,
               l2_adam_eps=1e-8,hidden_channels=32,val_every=100,val_episodes=50,
-              val_fraction=.2,split_seed=2026,first_order=False,meta_sgd_positive=False,
+              val_fraction=.2,split_seed=2026,first_order=False,meta_sgd_mode='clamp',
+              meta_sgd_clamp_min=1e-6,meta_sgd_clamp_max=.2,
               save_checkpoint=False)
 
 
@@ -74,7 +75,7 @@ def review(archive,output):
                 for _,v in val.iterrows():validations.append(dict(seed=seed,method=method,episode=int(v.episode),val_accuracy=v.val_accuracy_mean))
                 task_spread.append(dict(seed=seed,method=method,test_task_accuracy_std=sd,test_task_loss_mean=tasks.loss.mean()))
                 rows.append(dict(seed=seed,method=method,training_updates=len(log),test_tasks=len(tasks),validation_rounds=len(val),
-                                 signed_meta_sgd=True,checkpoint_requested=config['save_checkpoint'],device=config['device_used'],
+                                 meta_sgd_mode=config['meta_sgd_mode'],checkpoint_requested=config['save_checkpoint'],device=config['device_used'],
                                  elapsed_seconds=summary['elapsed_seconds'],status='passed'))
                 if method=='meta_l2':
                     trajectory=csv(base+'l2_trajectory.csv')
@@ -113,9 +114,18 @@ def review(archive,output):
                     close(distribution.negative_fraction,distribution.negative_count/distribution['count'],'Sign proportions')
                     require(hp.scope.eq('per_parameter').all(),'Step scope')
                     close(hp.negative_count.to_numpy(),distribution.negative_count.to_numpy(),'Sign hyperparameter counts')
+                    # PyTorch stores these steps as float32; compare with the
+                    # same representable bounds used by the training tensors.
+                    minimum=float(np.float32(EXPECTED['meta_sgd_clamp_min']))
+                    maximum=float(np.float32(EXPECTED['meta_sgd_clamp_max']))
+                    require((hp['min']>=minimum).all(),'Meta-SGD step below clamp minimum')
+                    require((hp['max']<=maximum).all(),'Meta-SGD step above clamp maximum')
+                    require((hp['negative_count']==0).all(),'Negative Meta-SGD step in clamp mode')
+                    require('clamp_count' in hp.columns,'Missing clamp count report')
                     total=int(distribution['count'].sum());negative=int(distribution.negative_count.sum())
                     signs.append(dict(seed=seed,count=total,negative_count=negative,negative_percent=100*negative/total,
-                                      minimum_step=hp['min'].min(),maximum_step=hp['max'].max()))
+                                      minimum_step=hp['min'].min(),maximum_step=hp['max'].max(),
+                                      clamp_count=int(hp['clamp_count'].sum())))
         require(all(x==all_splits[0] for x in all_splits),'Splits differ between runs')
         require(all(x==envs[0] for x in envs),'Environments differ between runs')
         manifest=js('water_metadata/manifest.json')
