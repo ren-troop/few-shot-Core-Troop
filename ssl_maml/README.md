@@ -102,6 +102,8 @@ python ssl_maml/experiments/exp5_water_ssl.py --quick
 
 结果 JSON 写在自动创建的 `results/ssl_maml/` 里，运行日志写在 `outputs_ssl_maml/`（该目录已 gitignore）；控制台也会打印汇总表。
 
+**本仓库已附带跑好的结果文件与汇总表，见 [`results/ssl_maml/`](../results/ssl_maml/)** —— 里面有三类数据的完整结果、每个数字的复现命令，以及一张「同一主干只换位置」的对照表。
+
 `exp1_synth.py` 支持 `--kinds` 指定要跑哪些主干和方法，`--quick` 用少量迭代快速验证；
 `exp5_water_ssl.py` 支持 `--split {random,spatial}` 和 `--K`。
 
