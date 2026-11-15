@@ -1,0 +1,2 @@
+episode,val_loss_mean,val_accuracy_mean,val_accuracy_std,val_accuracy_ci95
+30,322.32799392700196,0.4447999846935272,0.1331906669153318,0.03785236871871643
