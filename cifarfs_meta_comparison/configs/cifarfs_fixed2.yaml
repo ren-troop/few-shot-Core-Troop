@@ -1,0 +1,33 @@
+# Fixed-2 on CIFAR-FS: supervised pretraining + 2-step linear-head adaptation.
+seed: 0
+
+dataset:
+  name: cifar-fs
+  root: data
+  image_size: 32
+  n_way: 5
+  n_shot: 5
+  n_query: 15
+  cache_images: true
+  mean: [0.5071, 0.4866, 0.4409]
+  std: [0.2673, 0.2564, 0.2762]
+
+model:
+  hidden: 64
+  norm: group
+
+algorithm:
+  name: fixed2
+  inner_steps: 2
+  inner_lr: 0.05          # two steps on a fresh linear head need a larger rate
+  freeze_backbone: true
+  pretrain:
+    epochs: 40
+    batch_size: 128
+    lr: 0.001
+    weight_decay: 0.0005
+    num_workers: 2
+
+train:
+  output_dir: runs/cifarfs_fixed2
+  eval_tasks: 100

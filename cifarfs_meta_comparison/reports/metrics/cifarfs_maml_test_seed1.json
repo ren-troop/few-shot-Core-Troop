@@ -1,0 +1,10 @@
+{
+  "query_loss": 0.8416867711643378,
+  "query_acc": 0.6792444602151712,
+  "support_acc": 0.9534666522343953,
+  "inner_loss": 0.4082615297163526,
+  "n_tasks": 600,
+  "split": "test",
+  "dataset": "cifar-fs",
+  "algorithm": "maml"
+}

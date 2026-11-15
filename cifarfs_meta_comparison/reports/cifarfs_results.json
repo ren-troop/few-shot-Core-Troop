@@ -1,0 +1,119 @@
+{
+  "dataset": "cifar-fs",
+  "setting": "5-way 5-shot, 15 query, Conv4-64, 10k meta-iterations",
+  "test_protocol": "600 episodes per evaluation, 3 evaluation seeds",
+  "methods": [
+    {
+      "method": "MAML",
+      "algorithm": "maml",
+      "params": 114117,
+      "best_iter": 8500,
+      "best_val": 0.6334666815,
+      "final_val": 0.6270666808,
+      "final_iter": 10000,
+      "test_seeds": 3,
+      "test_acc_mean": 0.6827111262,
+      "test_acc_std": 0.0043394822,
+      "test_acc_values": [
+        0.6813111262,
+        0.6792444602,
+        0.6875777923
+      ],
+      "test_loss_mean": 0.8386090951,
+      "support_acc_mean": 0.9551110978,
+      "train_seconds": 3584.9,
+      "train_minutes": 59.7483333333,
+      "mean_inner_lr": null,
+      "l2_lambda": null
+    },
+    {
+      "method": "Meta-SGD",
+      "algorithm": "metasgd",
+      "params": 114117,
+      "best_iter": 7500,
+      "best_val": 0.6421333468,
+      "final_val": 0.6169333491,
+      "final_iter": 10000,
+      "test_seeds": 3,
+      "test_acc_mean": 0.6951852007,
+      "test_acc_std": 0.0046548708,
+      "test_acc_values": [
+        0.6932889052,
+        0.6917777923,
+        0.7004889046
+      ],
+      "test_loss_mean": 0.7921476725,
+      "support_acc_mean": 0.9756222127,
+      "train_seconds": 4243.0,
+      "train_minutes": 70.7166666667,
+      "mean_inner_lr": 0.0171550661,
+      "l2_lambda": null
+    },
+    {
+      "method": "Meta-L2",
+      "algorithm": "metal2",
+      "params": 114117,
+      "best_iter": 6000,
+      "best_val": 0.6398666814,
+      "final_val": 0.6200000155,
+      "final_iter": 10000,
+      "test_seeds": 3,
+      "test_acc_mean": 0.6923703862,
+      "test_acc_std": 0.0037931933,
+      "test_acc_values": [
+        0.6937111266,
+        0.6880889045,
+        0.6953111275
+      ],
+      "test_loss_mean": 0.8160272021,
+      "support_acc_mean": 0.9659333214,
+      "train_seconds": 4623.4,
+      "train_minutes": 77.0566666667,
+      "mean_inner_lr": null,
+      "l2_lambda": 2.86181e-05
+    },
+    {
+      "method": "Fixed-2",
+      "algorithm": "fixed2",
+      "params": 114117,
+      "best_iter": 0,
+      "best_val": 0.3636000071,
+      "final_val": 0.3636000071,
+      "final_iter": 0,
+      "test_seeds": 3,
+      "test_acc_mean": 0.4185037133,
+      "test_acc_std": 0.0055529031,
+      "test_acc_values": [
+        0.4126000095,
+        0.4192888988,
+        0.4236222317
+      ],
+      "test_loss_mean": 1.7835771252,
+      "support_acc_mean": 0.5897333142,
+      "train_seconds": null,
+      "train_minutes": null,
+      "mean_inner_lr": null,
+      "l2_lambda": null
+    }
+  ],
+  "fixed2_ablation": {
+    "2": {
+      "query_acc": 0.412600009466211,
+      "query_loss": 1.781037830809752,
+      "support_acc": 0.5891333146144947,
+      "n_tasks": 600
+    },
+    "10": {
+      "query_acc": 0.7045555706322193,
+      "query_loss": 0.8190953482935825,
+      "support_acc": 0.9891333304842314,
+      "n_tasks": 600
+    },
+    "50": {
+      "query_acc": 0.7197777923941612,
+      "query_loss": 0.7457441538820664,
+      "support_acc": 1.0,
+      "n_tasks": 600
+    }
+  }
+}

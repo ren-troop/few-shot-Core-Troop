@@ -1,0 +1,11 @@
+{
+  "query_loss": 0.7815314567089081,
+  "query_acc": 0.7004889045655728,
+  "support_acc": 0.9745333235462507,
+  "inner_loss": 0.3291225891808669,
+  "mean_lr": 0.01715506613254547,
+  "n_tasks": 600,
+  "split": "test",
+  "dataset": "cifar-fs",
+  "algorithm": "metasgd"
+}

@@ -1,0 +1,11 @@
+{
+  "query_loss": 1.781037830809752,
+  "query_acc": 0.412600009466211,
+  "support_acc": 0.5891333146144947,
+  "inner_loss": 1.269571595042944,
+  "l2_lambda": 0.0,
+  "n_tasks": 600,
+  "split": "test",
+  "dataset": "cifar-fs",
+  "algorithm": "fixed2"
+}
