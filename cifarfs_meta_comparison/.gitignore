@@ -1,0 +1,16 @@
+.venv/
+.tmp/
+torchinductor_*/
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+data/
+runs/
+reports/.mplconfig/
+reports/metrics/*.log
+*.part
+
+# The upstream repository ignores *.png and *.csv globally; keep report assets.
+!reports/**/*.png
+!reports/**/*.csv

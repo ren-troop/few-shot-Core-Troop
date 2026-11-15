@@ -1,0 +1,8 @@
+torch>=2.7.0
+torchvision>=0.22.0
+numpy>=1.26
+Pillow>=10.0
+PyYAML>=6.0
+tqdm>=4.66
+certifi
+pyarrow>=15.0
