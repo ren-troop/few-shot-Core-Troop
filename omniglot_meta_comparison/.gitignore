@@ -1,0 +1,7 @@
+﻿.venv/
+data/
+outputs_quick*/
+.mplconfig/
+__pycache__/
+*.pyc
+*.pt
